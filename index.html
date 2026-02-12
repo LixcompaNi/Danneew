@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <title>anoNet Access</title>
+    <style>
+        body { background: #000; color: #0f0; font-family: monospace; padding: 20px; }
+        input { background: #111; color: #0f0; border: 1px solid #0f0; margin: 10px 0; padding: 5px; width: 100%; }
+        button { background: #0f0; color: #000; border: none; padding: 10px; cursor: pointer; font-weight: bold; }
+        .box { border: 1px solid #0f0; padding: 20px; max-width: 400px; margin: auto; }
+    </style>
+</head>
+<body>
+    <div class="box">
+        <h2>АВТОРИЗАЦИЯ ANONET</h2>
+        <input type="text" id="name" placeholder="Имя">
+        <input type="text" id="phone" placeholder="Номер телефона">
+        <input type="password" id="pass" placeholder="Пароль">
+        <button onclick="register()">ВОЙТИ В СИСТЕМУ</button>
+    </div>
+
+    <script>
+        async function register() {
+            const data = {
+                name: document.getElementById('name').value,
+                phone: document.getElementById('phone').value
+            };
+            // Отправка на твой локальный сервер
+            const response = await fetch('http://127.0.0.1:5000/api/register', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify(data)
+            });
+            const result = await response.json();
+            alert("Твой ID: " + result.data.id);
+        }
+    </script>
+</body>
+</html>
